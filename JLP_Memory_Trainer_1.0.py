@@ -5,7 +5,7 @@ import tkinter.ttk as ttk
 #USE FULLSCREEN-MODE to see full GUI
 
 #Code by Jeremy Mrzyglocki
-#Version v10 in personal version-track-metric
+#Version v11 in personal version-track-metric
 
 '''
 STRUCTURE OF CODE:
@@ -65,7 +65,7 @@ master_array_input = [[' '] * (max_letters + 1) for _ in range(number_of_cubes)]
 master_array_string = [' '] * int(max_letters + max_letters)
 master_farben =      [[' '] * (max_letters + 1) for _ in range(number_of_cubes)]
 
-stats = [[0]*2]*10 #For now only 10 attempts are able to be saved per session, currently not using this variable yet
+stats = [[0]*2]*10 # For now only 10 attempts are able to be saved per session, currently not using this variable yet
 
 #########################################  Widget-Variables  #################################################
 
@@ -89,10 +89,10 @@ def select_value_with_probability():
     selected_index_corners = random.choices(range(len(values_corners)), prob_corners)[0]
     selected_value_edges = values_edges[selected_index_edges]
     selected_value_corners = values_corners[selected_index_corners]
-    #recursive Parity-Check: (for explanation of what Parity means here, see README)
+    # recursive Parity-Check: (for explanation of what Parity means here, see README)
     if ( (selected_value_edges%2 == 1) and (selected_value_corners%2 == 1) or (selected_value_edges%2 == 0) and (selected_value_corners%2 == 0)):
-        #line for debugging:
-        #print('selected_value_edges=', str(selected_value_edges)+ ' selected_value_corners=', str(selected_value_corners))
+        # line for debugging:
+        # print('selected_value_edges=', str(selected_value_edges)+ ' selected_value_corners=', str(selected_value_corners))
         return selected_value_edges, selected_value_corners
     else: 
         return select_value_with_probability()
@@ -265,9 +265,14 @@ def generate_and_start():
 def generate_results_text():
     total_elapsed_time_m = elapsed_time_m+elapsed_time_m2
     total_elapsed_time_s = elapsed_time_s+elapsed_time_s2
+    total_memo_s = elapsed_time_m*60+elapsed_time_s
     
-    avg_memo_time_per_cube_m = math.floor((elapsed_time_m*60+elapsed_time_s)/60)
-    avg_memo_time_per_cube_s = (elapsed_time_m*60+elapsed_time_s)%60
+    avg_memo_time_per_cube_m = math.floor(total_memo_s/number_of_cubes)
+    avg_memo_time_per_cube_s = (total_memo_s/number_of_cubes)%60
+
+    points = number_of_cubes-2*number_of_wrong_cubes_in_attempt
+    if points < 0:
+        points = 0 # In the official WCA Multi-Blind-metric, having solved less than half of the attempted Rubik's Cubes, results in 0 points
 
     if (total_elapsed_time_s>59):
         total_elapsed_time_s = total_elapsed_time_s-60
@@ -280,10 +285,10 @@ def generate_results_text():
         f"={str(total_elapsed_time_m).zfill(2)}:{str(total_elapsed_time_s).zfill(2)} min in total\n"
         f"Average memo-time per cube: {str(avg_memo_time_per_cube_m).zfill(2)}:{str(avg_memo_time_per_cube_s).zfill(2)}\n"
         f"Mistakes: {number_of_wrong_letters_in_attempt}\n"
-        f"Accuracy(letters): {(number_of_letters_in_attempt-number_of_wrong_letters_in_attempt)/number_of_letters_in_attempt}% \n\n"
+        f"Accuracy(letters): {str((number_of_letters_in_attempt-number_of_wrong_letters_in_attempt)/number_of_letters_in_attempt).zfill(2)}% \n\n"
         f"Accuracy(cubes):{number_of_cubes-number_of_wrong_cubes_in_attempt}/{number_of_cubes} ({(number_of_cubes-number_of_wrong_cubes_in_attempt)/number_of_cubes}%) \n"
-        f"Points: {number_of_cubes-2*number_of_wrong_cubes_in_attempt}\n"
-        f"_exported-from-Jeremy's-Letter-Pair-Trainer_\n"
+        f"Points: {points}\n"
+        f"exported-from-Jeremy's-Memory-Letter-Trainer\n"
         f"--------------------------------------------\n"
 )    
     results_textbox.insert("end", results_string + "\n")
@@ -355,7 +360,7 @@ def update_timer2():
 #########################################  WIDGETS  #################################################
 
 root = tk.Tk()
-root.title("Letter Pair Generator by Jeremy M v10")
+root.title("Jeremy's Memory Letter Trainer 1.1")
 
 column0 = tk.Frame(root, bd=2, relief=tk.SOLID)
 column0.grid(row=0, column=0, sticky="nsew")
