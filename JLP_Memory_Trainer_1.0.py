@@ -95,7 +95,7 @@ def select_value_with_probability():
         # print('selected_value_edges=', str(selected_value_edges)+ ' selected_value_corners=', str(selected_value_corners))
         return selected_value_edges, selected_value_corners
     else: 
-        return select_value_with_probability()
+        return select_value_with_probability() # I might change this function
 
 
 def gen_lps():  # lps stands for letter pairs
