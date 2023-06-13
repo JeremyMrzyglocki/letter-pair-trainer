@@ -479,7 +479,7 @@ results_textbox.grid(row=9, column=0)
 button = ttk.Button(column3, text="Copy results to Clipboard", command=copy_to_clipboard)
 button.grid(row=10, column=0, columnspan=2, padx=10, pady=10)
 
-spacing = tk.Label(column3, text='\n\n\n\n\n\n\n\n\nSettings:\n')
+spacing = tk.Label(column3, text='\n\nSettings:\n')
 spacing.grid(row=11, column=0)
 
 
@@ -491,24 +491,35 @@ textbox = tk.Text(column3, height=1, width=max_letters)
 textbox.insert("1.0", my_letter_sceme)
 textbox.grid(row=31, column=0)
 
+textbox_heading_buffer1 = tk.Label(column3, text='Enter the letter of your corner- and edge-buffer:')
+textbox_heading_buffer1.grid(row=32, column=0)
+
+textbox_buffer1 = tk.Text(column3, height=1, width=2)
+textbox_buffer1.insert("1.0", '')
+textbox_buffer1.grid(row=33, column=0)
+
+textbox_buffer2 = tk.Text(column3, height=1, width=2)
+textbox_buffer2.insert("1.0", '')
+textbox_buffer2.grid(row=33, column=1)
+
 button = tk.Button(column3, text="show characters", command=store_characters)
-button.grid(row=32, column=0)
+button.grid(row=34, column=0)
 
 checkbox = tk.Checkbutton(column3, state=tk.DISABLED)
-checkbox.grid(row=33, column=1)
+checkbox.grid(row=35, column=1)
 
 textbox_heading_n = tk.Label(column3, text='Input number of cubes that you want to memorize:')
-textbox_heading_n.grid(row=34, column=0)
+textbox_heading_n.grid(row=36, column=0)
 
 textbox_n = tk.Text(column3, height=1, width=3)
 textbox_n.insert("1.0", initial_cube_number)
-textbox_n.grid(row=35, column=0)
+textbox_n.grid(row=37, column=0)
 
 button_n = tk.Button(column3, text="Save Number of Cubes", command=configure_number_of_cubes)
-button_n.grid(row=36, column=0)
+button_n.grid(row=38, column=0)
 
 checkbox_n = tk.Checkbutton(column3, state=tk.DISABLED)
-checkbox_n.grid(row=37, column=1)
+checkbox_n.grid(row=39, column=1)
 
 #########################################  column3 end #################################################
 #########################################  END WIDGETS #################################################
