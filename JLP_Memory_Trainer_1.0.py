@@ -2,6 +2,8 @@ import random, math
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import tkinter.ttk as ttk
+from datetime import datetime
+
 #USE FULLSCREEN-MODE to see full GUI
 
 #Code by Jeremy Mrzyglocki
@@ -22,6 +24,10 @@ What I am going to implement in the future:
 -increase the 16-cube-limit (implement a functional scrollbar)
 '''
 #########################################  Variables  #################################################
+
+current_datetime = datetime.now()
+formatted_datetime = current_datetime.strftime("%d.%m.%Y %H:%M:%S")
+
 
 font = ("Monaco", 15) #using a monospace font so that the letters are below eachother
 fontsmall = ("Monaco", 12)
@@ -285,9 +291,10 @@ def generate_results_text():
         f"={str(total_elapsed_time_m).zfill(2)}:{str(total_elapsed_time_s).zfill(2)} min in total\n"
         f"Average memo-time per cube: {str(avg_memo_time_per_cube_m).zfill(2)}:{str(avg_memo_time_per_cube_s).zfill(2)}\n"
         f"Mistakes: {number_of_wrong_letters_in_attempt}\n"
-        f"Accuracy(letters): {str((number_of_letters_in_attempt-number_of_wrong_letters_in_attempt)/number_of_letters_in_attempt).zfill(2)}% \n\n"
-        f"Accuracy(cubes):{number_of_cubes-number_of_wrong_cubes_in_attempt}/{number_of_cubes} ({(number_of_cubes-number_of_wrong_cubes_in_attempt)/number_of_cubes}%) \n"
+        f"Accuracy(letters): {str((((number_of_letters_in_attempt-number_of_wrong_letters_in_attempt)/number_of_letters_in_attempt))*100).zfill(2)}% \n\n"
+        f"Accuracy(cubes):{number_of_cubes-number_of_wrong_cubes_in_attempt}/{number_of_cubes} ({((number_of_cubes-number_of_wrong_cubes_in_attempt)/number_of_cubes)*100}%) \n"
         f"Points: {points}\n"
+        f"Date: {formatted_datetime}\n"
         f"exported-from-Jeremy's-Memory-Letter-Trainer\n"
         f"--------------------------------------------\n"
 )    
@@ -360,7 +367,7 @@ def update_timer2():
 #########################################  WIDGETS  #################################################
 
 root = tk.Tk()
-root.title("Jeremy's Memory Letter Trainer 1.1")
+root.title("Jeremy's Memory Letter Trainer 1.0.2")
 
 column0 = tk.Frame(root, bd=2, relief=tk.SOLID)
 column0.grid(row=0, column=0, sticky="nsew")
